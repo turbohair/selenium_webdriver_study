@@ -10,17 +10,15 @@ class TestRegistration < Test::Unit::TestCase
     @driver.navigate.to 'http://demo.redmine.org'
   end
 
-  def test_logout
+  def test_create_project
     register_user
-    logout
-    assert(@driver.find_element(:class, 'login').displayed?)
-  end
+    create_project
 
-  def test_login_positive
-    register_user
-    logout
-    login_valid
-    assert(@driver.find_element(:class, 'logout').displayed?)
+    wait.until {@driver.find_element(:id, 'flash_notice').displayed?}
+
+    expected_text = 'Successful creation.'
+    actual_text = @driver.find_element(:id, 'flash_notice').text
+    assert_equal(expected_text, actual_text)
   end
 
   def teardown

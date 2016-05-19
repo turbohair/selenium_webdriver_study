@@ -21,7 +21,6 @@ class TestRegistration < Test::Unit::TestCase
 
     expected_text = 'Password was successfully updated.'
     actual_text = @driver.find_element(:id, 'flash_notice').text
-
     assert_equal(expected_text, actual_text)
   end
 

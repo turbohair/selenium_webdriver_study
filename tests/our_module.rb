@@ -1,4 +1,5 @@
 module OurModule
+
   def register_user
 
     @driver.find_element(:class, 'register').click
@@ -34,8 +35,37 @@ module OurModule
     @driver.find_element(:name, 'login').click
   end
 
+  def create_project
+    @driver.find_element(:class, 'projects').click
+    @driver.find_element(:css, '.icon.icon-add').click
+
+    project_name = 'omy_project' + rand(99999).to_s
+    project_name_text_field = @driver.find_element(:id, 'project_name')
+    wait.until {project_name_text_field.displayed?}
+    project_name_text_field.send_keys project_name
+    @driver.find_element(:name, 'commit').click
+  end
+
+  def create_issue (issue_type)
+
+    if issue_type == 'bug'
+      option_value = '1'
+    elsif issue_type == 'feature'
+      option_value = '2'
+    elsif issue_type == 'support'
+      option_value = '3'
+    end
+
+    @driver.find_element(:class, 'new-issue').click
+
+    issue_type_dropdown = @driver.find_element(:id, 'issue_tracker_id')
+    option = Selenium::WebDriver::Support::Select.new(issue_type_dropdown)
+    option.select_by(:value, option_value)
+    @driver.find_element(:id, 'issue_subject').send_keys 'test'
+    @driver.find_element(:name, 'commit').click
+  end
+
   def wait
     wait = Selenium::WebDriver::Wait.new(:timeout => 10)
-    # wait
   end
 end
