@@ -18,15 +18,6 @@ class TestRegistration < Test::Unit::TestCase
     assert_equal(expected_text, actual_text)
   end
 
-  # def test_log_out
-  #   register_user
-  #   @driver.find_element(:class, 'logout').click
-  #   sleep 3
-  #   login_button = @driver.find_element(:class, 'login')
-  #   assert(login_button.displayed?)
-  #
-  # end
-
   def teardown
     @driver.quit
   end

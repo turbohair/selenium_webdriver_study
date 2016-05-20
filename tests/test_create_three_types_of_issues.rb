@@ -10,27 +10,31 @@ class TestRegistration < Test::Unit::TestCase
     @driver.navigate.to 'http://demo.redmine.org'
   end
 
-  def test_create_issues
+  def test_create_issue_type_bug
     register_user
     create_project
-
-    # bug = '1'
-    # feature = '2'
-    # support = '3'
-    create_issue('support')
-
-    # expected_text = 'Your account has been activated. You can now log in.'
-    # actual_text = @driver.find_element(:id, 'flash_notice').text
-    # assert_equal(expected_text, actual_text)
-    # @driver.find_element(:css, 'div#content > h2:first-child')
-
-    @driver.find_element(:xpath, "//*[@id='content']//*[contains(text(), 'Support')]")
-
-
+    create_issue('bug')
+    issue_type_header = @driver.find_element(:xpath, "//*[@id='content']//*[contains(text(), 'Bug')]")
+    assert(issue_type_header.displayed?)
   end
 
+  def test_create_issue_type_feature
+    register_user
+    create_project
+    create_issue('feature')
+    issue_type_header = @driver.find_element(:xpath, "//*[@id='content']//*[contains(text(), 'Feature')]")
+    assert(issue_type_header.displayed?)
+  end
+
+  def test_create_issue_type_support
+    register_user
+    create_project
+    create_issue('support')
+    issue_type_header = @driver.find_element(:xpath, "//*[@id='content']//*[contains(text(), 'Support')]")
+    assert(issue_type_header.displayed?)
+  end
 
   def teardown
-    # @driver.quit
+    @driver.quit
   end
 end
