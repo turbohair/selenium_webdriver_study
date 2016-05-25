@@ -68,21 +68,21 @@ class TestRedmineMainTask < Test::Unit::TestCase
     register_user
     create_project
     create_issue('bug')
-    assert(issue_type_header = @driver.find_element(:css, 'h2').text.include?('Bug'))
+    assert(@driver.find_element(:css, 'h2').text.include?('Bug'))
   end
 
   def test_create_issue_type_feature
     register_user
     create_project
     create_issue('feature')
-    assert(issue_type_header = @driver.find_element(:css, 'h2').text.include?('Feature'))
+    assert(@driver.find_element(:css, 'h2').text.include?('Feature'))
   end
 
   def test_create_issue_type_support
     register_user
     create_project
     create_issue('support')
-    assert(issue_type_header = @driver.find_element(:css, 'h2').text.include?('Support'))
+    assert(@driver.find_element(:css, 'h2').text.include?('Support'))
   end
 
   def teardown
