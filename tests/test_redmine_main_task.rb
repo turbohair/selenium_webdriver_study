@@ -43,9 +43,6 @@ class TestRedmineMainTask < Test::Unit::TestCase
   def test_create_project
     register_user
     create_project
-
-    # wait.until {@driver.find_element(:id, 'flash_notice').displayed?}
-
     assert(@driver.find_element(:id, 'flash_notice').displayed?)
   end
 
