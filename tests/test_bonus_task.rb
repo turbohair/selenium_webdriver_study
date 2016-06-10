@@ -7,7 +7,6 @@ class TestRedmineMainTask < Test::Unit::TestCase
 
   def setup
     @driver = Selenium::WebDriver.for :chrome
-    @base_url = 'https://the-internet.herokuapp.com'
   end
 
   def test_hover
@@ -22,24 +21,26 @@ class TestRedmineMainTask < Test::Unit::TestCase
     dnd_javascript = File.read(Dir.pwd + '/drag_and_drop_helper.js')
     @driver.execute_script(dnd_javascript+"$('#column-a').simulateDragDrop({ dropTarget: '#column-b'});")
 
-    @driver.find_element(id: 'column-a').text.include?('B')
-    @driver.find_element(id: 'column-b').text.include?('A')
+    assert(@driver.find_element(id: 'column-a').text.include?('B') && @driver.find_element(id: 'column-b').text.include?('A'))
   end
 
   def test_select_list
     @driver.navigate.to 'https://the-internet.herokuapp.com/dropdown'
 
     dropdown = @driver.find_element(:id, 'dropdown')
-    option = Selenium::WebDriver::Support::Select.new(dropdown)
-    option.select_by(:value, '2')
+    options = dropdown.find_elements(:tag_name, 'option')
+    options.each { |option| option.click if option.text == 'Option 2'}
+    selected_option = options.map {|option| option.text if option.selected? }.join
+    assert(selected_option.eql? ('Option 2'))
   end
 
   def test_iframes
     @driver.navigate.to 'https://the-internet.herokuapp.com/iframe'
-
+    input_text = 'Hello World!'
     @driver.switch_to.frame('mce_0_ifr')
     editor = @driver.find_element(:id, 'tinymce')
-    editor.send_keys 'Hello World!'
+    editor.send_keys input_text
+    assert(editor.find_element(:css, 'p').text.include? (input_text))
   end
 
   def test_key_press
@@ -60,7 +61,7 @@ class TestRedmineMainTask < Test::Unit::TestCase
     wait.until {second_element.displayed?}
     @driver.mouse.move_to(second_element)
     wait.until {third_element.displayed?}
-    third_element.click
+    assert(@driver.find_element(:css, "a[href='/download/jqueryui/menu/menu.pdf']").displayed?)
   end
 
   def test_javascript_alerts
