@@ -1,1 +1,1 @@
-This is the file created for merge_conflict branch.
+This is the text after resolved conflict.
