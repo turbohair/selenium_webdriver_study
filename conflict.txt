@@ -1,0 +1,14 @@
+What is 'git stash' and how to use it?
+- Stash is used to avoid commiting of incomplete implementation in the moment when you want to switch to another branch.
+- I do some coding. Stage > Stash, Switch to another branch. But you have your stashed changes available at any time.
+
+What is 'git reset' and when we shouldn't use it?
+- Use git reset when you want to revert changes made in particular branch. Reverting files from index while you can keep them in working directory.
+- We probably should not use it when we are afraid of losing our local changes.
+
+When we need cherry-pick, and how does it happens?
+- When you want to get commit from another branch. We can get particular commit from one branch and add it to the place where we are now.
+
+What does do 'git rm ..' command and what not?
+- Removes files from the working tree and from index. Does not delete file from working directory.
+
