@@ -22,7 +22,7 @@ array_of_numbers = array_from_string.map do |element|
   element.to_i.to_s
 end
 
-puts array_of_numbers.max_by(&:length)
+puts array_of_numbers.max_by(&:length).length
 
 puts "Task 3. There is a string. Find a maximal number (not a digit) in it"
 array_of_digits = array_from_string.map do |element|
